@@ -4,7 +4,7 @@ library(psych)
 ###############
 ####Read data and set parametres####
 ###############
-dat<-read.table	("./IRL_training/response/random-lables-internal-glmnet-LASSO-trained-irlrandom-lables-ld0.8-maf0.05-phred=5-only-genet.txt",	header=T,	sep="\t") 
+dat<-read.table	("cross-validation-stats.txt",	header=T,	sep="\t") 
 dat[dat=="NA"]=NA
 dat[dat==" "]=NA
 ###############
@@ -46,7 +46,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
  }
 ###############
-###plot summary of repeated CV###
+###plot summary  CV###
 ################
 p.acc <- ggplot(dat, aes(x=Alg, y=Accuracy, fill=Alg))+ 
 geom_boxplot(width=0.5)+
@@ -67,7 +67,7 @@ theme_bw() +
 theme(legend.position="none",text = element_text(size=14))+ 
 xlab("")+ylim(c(0, 1))+ 
 scale_fill_brewer(palette="Blues")
-jpeg("./IRL_training/response/random-lables-internal-glmnet-LASSO-trained-irlrandom-lables-ld0.8-maf0.05-phred=5-only-genet.jpg", width=4200, height=2200,units="px",res=300)
+jpeg("cross-validation-stats.jpg", width=4200, height=2200,units="px",res=300)
 multiplot(p.acc,p.sens,p.spec,cols=2)
 dev.off()
 ###############
@@ -75,4 +75,4 @@ dev.off()
 ################
 a = describeBy(dat[,2:4], dat$Alg,digits=3)
 a2 <- do.call("rbind",a)
-write.table(a2,file="./IRL_training/response/random-lables-internal-glmnet-LASSO-trained-irlrandom-lables-ld0.8-maf0.05-phred=5-only-genet-summary-stats.txt", quote=F, sep="\t")
+write.table(a2,file="cross-validation-stats-summary-stats.txt", quote=F, sep="\t")
