@@ -73,6 +73,6 @@ dev.off()
 ###############
 ###get summary stats###
 ################
-perf.stat = describeBy(dat[,2:4], dat$Alg,digits=3) ####choose columns where performance stats are stored
+perf.stat = describeBy(dat[,c("Accuracy","Sensitivity" ,"Specificity")], dat$Alg,digits=3) ####choose columns where performance stats are stored
 perf.stat 2 <- do.call("rbind",perf.stat )
 write.table(a2,file="cross-validation-stats-summary-stats.txt", quote=F, sep="\t")
