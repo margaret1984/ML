@@ -1,5 +1,3 @@
-#################This script is to write ALL steps of ML in one script, staring from data split, filtering and finally model fit. File for all with SNPs filtered by phred and/or plink files for GWAS are neeeded 
-#########http://appliedpredictivemodeling.com/blog/2017/9/2/njdc83d01pzysvvlgik02t5qnaljnd ###nested CV in a lool 
 library(doParallel)
 library(parallel)
 library(caret)
