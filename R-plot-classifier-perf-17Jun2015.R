@@ -48,25 +48,19 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 ###############
 ###plot summary  CV###
 ################
-p.acc <- ggplot(dat, aes(x=Alg, y=Accuracy, fill=Alg))+ 
-geom_boxplot(width=0.5)+
-theme_bw() + 
-theme(legend.position="none",text = element_text(size=14))+ 
-xlab("")+ 
-scale_fill_brewer(palette="Blues")
-p.sens<- ggplot(dat, aes(x=Alg, y=Sensitivity, fill=Alg))+ 
-geom_boxplot(width=0.5)+
-theme_bw() + 
-theme(legend.position="none",text = element_text(size=14))+
-xlab("")+ 
-scale_fill_brewer(palette="Blues")+
-ylim(c(0, 1))
-p.spec <-ggplot(dat, aes(x=Alg, y=Specificity, fill=Alg))+ 
-geom_boxplot(width=0.5)+
-theme_bw() + 
-theme(legend.position="none",text = element_text(size=14))+ 
-xlab("")+ylim(c(0, 1))+ 
-scale_fill_brewer(palette="Blues")
+palette.jco = c('#0073C2', '#EFC000', '#868686', '#CD534C', '#7AA6DC','#003C67', '#8F7700', '#3B3B3B', '#A73030', '#4A6990')
+myplot <- function(data,clas, clas.name){
+    ggplot(data, aes(x=Alg, y=clas, colour=Alg))+ 
+    geom_boxplot(width=0.5, size=1)+
+    theme_bw() + 
+    theme(legend.position="none",axis.title.y = element_text(colour="Black",size=15),axis.text = element_text(colour="Black",size=12))+ 
+    xlab("")+ 
+    ylab(clas.name)+
+    scale_colour_manual(values=palette.jco)
+}
+p.acc <-myplot(data=dat, clas=dat$Accuracy,clas.name="Accuracy")
+p.sens <- myplot(data=dat, clas=dat$Sensitivity,clas.name="Sensitivity") 
+p.spec <- myplot(data=dat, clas=dat$Specificity,clas.name="Specificity")
 jpeg("cross-validation-stats.jpg", width=4200, height=2200,units="px",res=300)
 multiplot(p.acc,p.sens,p.spec,cols=2)
 dev.off()
